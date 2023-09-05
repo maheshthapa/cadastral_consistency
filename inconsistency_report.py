@@ -23,10 +23,11 @@ def main(vdc, ward):
 
 if __name__ == "__main__":
 	
-	ward_list = [9]
-	vdc = "Gudel"
+	ward_list = [3]
+	vdc = "Tapting"
 
 	for ward in ward_list:
 		main(vdc, ward)
 	
+	print()
 	

@@ -1,21 +1,18 @@
 from cadastre import parcel_subdivision_register
 from conversion import register_conversion
+from conversion import construct_path
 
-def main(vdc, ward, parcel_list):
-	df = register_conversion.generate_parcel_subdivision_dataframe(vdc, ward)
-	register = parcel_subdivision_register.ParcelSubdivisionRegister(df)
-	for parcel in parcel_list:
-		gen_parcel_profile(register, parcel)
-		
 
-def main1(vdc, ward, parcel_list):
-	df = register_conversion.generate_parcel_subdivision_dataframe(vdc, ward)
-	register = parcel_subdivision_register.ParcelSubdivisionRegister(df)
-	for parcel in parcel_list:
-		register.parcel_tree( parcel)
+def main(vdc, ward, parcels):
+	register_path = construct_path.construct_register_path(vdc, ward)
+	register_dataframe = register_conversion.transform_excel_to_dataframe(register_path)
+	register = parcel_subdivision_register.ParcelSubdivisionRegister(register_dataframe)
+	for parcel in parcels: 
+		generate_parcel_profile(register, parcel)		
 
-# Function to test Plotregister class
-def gen_parcel_profile(register, parcelno):
+
+# Generates parcel profile
+def generate_parcel_profile(register, parcelno):
 	# get vdc and ward info
 	vdc = register.get_vdc()
 	ward = register.get_ward()
@@ -32,11 +29,21 @@ def gen_parcel_profile(register, parcelno):
 		print()
 
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
+	# Pass values for generating parcel profile
 	
+	#main(vdc, ward, parcels)
+	#main('Gorakhani', 5, [498])
+	main('Salleri', 5, [2525])
+	#main('Chaurikharka', 8, [293])
+	
+	
+		
+
+
 	#main1('Sotang', 1, [1186, 1184, 910, 925, 926, 1177, 1175, 1176])
 	
-	main('Chaurikharka', 8, [1051])
+	
 
 	
