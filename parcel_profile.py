@@ -1,4 +1,4 @@
-from cadastre import parcel_subdivision_register
+from cadastre import plot_register
 from conversion import register_conversion
 from conversion import construct_path
 
@@ -6,9 +6,10 @@ from conversion import construct_path
 def main(vdc, ward, parcels):
 	register_path = construct_path.construct_register_path(vdc, ward)
 	register_dataframe = register_conversion.transform_excel_to_dataframe(register_path)
-	register = parcel_subdivision_register.ParcelSubdivisionRegister(register_dataframe)
+	register = plot_register.ParcelSubdivisionRegister(register_dataframe)
 	for parcel in parcels: 
-		generate_parcel_profile(register, parcel)		
+		generate_parcel_profile(register, parcel)
+			
 
 
 # Generates parcel profile
@@ -31,19 +32,11 @@ def generate_parcel_profile(register, parcelno):
 
 
 if __name__ == "__main__":
-	# Pass values for generating parcel profile
-	
-	#main(vdc, ward, parcels)
-	#main('Gorakhani', 5, [498])
-	main('Salleri', 5, [2525])
-	#main('Chaurikharka', 8, [293])
-	
-	
-		
-
-
-	#main1('Sotang', 1, [1186, 1184, 910, 925, 926, 1177, 1175, 1176])
+	# Pass values for generating parcel profile	
+	#main('Basa', 1,  [121, 165, 179, 188, 202])
+	main('Basa', 1,  [1795])
 	
 	
 
+	
 	

@@ -1,33 +1,46 @@
 from cadastre import parcel_database
-from cadastre import parcel_subdivision_register
-from cadastre import register_and_database as rnd
+from cadastre import plot_register
+from cadastre import inconsistency_utils 
 
-from conversion import register_conversion
-from conversion import shapefile_conversion
+def main(plot_register, database):
+    
 
-def main(vdc, ward):
-	# Conversion of database geodataframe to object
-	geodataframe = shapefile_conversion.generate_geodataframe(vdc, ward)
-	database = parcel_database.ParcelDatabase(geodataframe)
+    #print(basa_database.list_parcels())
+    
+    print("Leaf Parcels")
+    print(plot_register.extract_leaf_parcels())
+    print()
+    
+    print("Extra Parcels")
+    print(inconsistency_utils.extract_extra_parcels(plot_register, database))
+    print()
+    
+    print("Duplicate Parcels")
+    print(inconsistency_utils.extract_duplicate_parcels(plot_register, database))
+    print()
 
-	# Conversion of register dataframe to object
-	dataframe = register_conversion.generate_parcel_subdivision_dataframe(vdc,ward)
-	register = parcel_subdivision_register.ParcelSubdivisionRegister(dataframe)
+    print("Missing Parcels")
+    print(inconsistency_utils.extract_missing_parcels(plot_register, database))
+    print()
 
+    print("Dead Parcels")
+    print(inconsistency_utils.extract_dead_parcels(plot_register, database))
+    print()
 
-	
-	rnd.generate_report(register, database)
-	#rnd.generate_dead_parcel_report(register, database)
 
 
 
 if __name__ == "__main__":
-	
-	ward_list = [3]
-	vdc = "Tapting"
+    plot_register_path = r'D:\coding_projects\cadastral_consistency\data\Sample_Plotregister.xlsx' 
+    sample_plot_register = plot_register.PlotRegister(plot_register_path)
 
-	for ward in ward_list:
-		main(vdc, ward)
-	
-	print()
-	
+    database_path = r'D:\coding_projects\cadastral_consistency\data\Sample_Database.shp'
+    sample_database = parcel_database.Parcel_Database(database_path)
+
+    
+   
+    
+    main(sample_plot_register, sample_database)
+    
+    
+    
