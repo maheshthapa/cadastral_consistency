@@ -36,6 +36,7 @@ def extract_duplicate_parcels(register, database):
     
     # List all parcels in the database
     database_parcels = database.list_parcels()
+    print(database_parcels)
     
     # Count occurrences of each parcel in the leaf parcels
     leaf_count = {}
